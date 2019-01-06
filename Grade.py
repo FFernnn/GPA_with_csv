@@ -4,7 +4,9 @@ def open_file(f):
     subject = []
     with open(f, newline='') as csvfile:
           reader = csv.DictReader(csvfile)
+
           for row in reader:
+
               subject.append([row['SUBJECT'], (row['CREDIT']), (row['GRADE'])])
     return subject
 
@@ -35,14 +37,16 @@ def calculate(f):
 def edit(f):
     show(f)
     data = open_file(f)
-    print('want to stop edit press Q')
-    select_sub = input("Select subject : ")
-    new_grade = input("New Grade : ")
-    # select subject
-    for i in range(len(data)):
-        if select_sub == str(data[i][0]):
-            data[i][2] = new_grade
-    print(data)
+    print('How many to change subject ?')
+    intput_choose = int(input("You want to change :"))
+    for i in range(intput_choose):
+        select_sub = input("Select subject{} : ".format(i+1))
+        new_grade = input("New Grade : ")
+        # select subject
+        for i in range(len(data)):
+            if select_sub == str(data[i][0]):
+                data[i][2] = new_grade
+
     # new GPA
     total_c = 0
     total_CxG = 0
@@ -51,12 +55,29 @@ def edit(f):
         total_CxG += (float(data[i][1]) * float(data[i][2]))
     GPA = total_CxG / total_c
     print('New GPA : {:.2f}'.format(GPA))
+
+    print('You want to save change ? [Y/N]')
+    choice = input('you choose : ')
+    if choice == 'N' or 'n':
+        return data
+    elif choice == 'Y' or 'y':
+        save(data)
+
     return data
 
-def save():
+def save(data):
+    with open("new.csv", "w", newline="") as csvfile:
+        fieldnames = ['Subject','Credit','Grade']
+        fw = csv.DictWriter(csvfile, fieldnames=fieldnames)
+        fw.writeheader()
+        for i in range(len(data)):
+            fw.writerow({'Subject':data[i][0],
+                         'Credit':data[i][1],
+                         'Grade':data[i][2]})
+    print("Save Success !!!")
     return
 
-def main_programe():
+def main_programe(f):
 
     while True:
         print("Select mode \n 1.) Edit Grade \n 2.) Calculate Grade")
@@ -66,15 +87,16 @@ def main_programe():
             break
         elif select == "1":
             print("**** Edit Grade Mode ****")
-            edit('simple.csv')
+            edit(f)
+
         elif select == "2" :
             print("**** Calclate Grade Mode")
-            show('simple.csv')
+            show(f)
         else:
             print('Try Again !!!')
     return
 
-main_programe()
+main_programe("simple.csv")
 
 
 
