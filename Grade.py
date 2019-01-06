@@ -33,9 +33,25 @@ def calculate(f):
     return GPA
 
 def edit(f):
+    show(f)
     data = open_file(f)
-
-    return
+    print('want to stop edit press Q')
+    select_sub = input("Select subject : ")
+    new_grade = input("New Grade : ")
+    # select subject
+    for i in range(len(data)):
+        if select_sub == str(data[i][0]):
+            data[i][2] = new_grade
+    print(data)
+    # new GPA
+    total_c = 0
+    total_CxG = 0
+    for i in range(len(data)):
+        total_c += float(data[i][1])
+        total_CxG += (float(data[i][1]) * float(data[i][2]))
+    GPA = total_CxG / total_c
+    print('New GPA : {:.2f}'.format(GPA))
+    return data
 
 def save():
     return
@@ -46,10 +62,11 @@ def main_programe():
         print("Select mode \n 1.) Edit Grade \n 2.) Calculate Grade")
         select = (input("Your select :"))
         if select == "0":
+            print('GOOD BYE')
             break
         elif select == "1":
             print("**** Edit Grade Mode ****")
-            show('simple.csv')
+            edit('simple.csv')
         elif select == "2" :
             print("**** Calclate Grade Mode")
             show('simple.csv')
