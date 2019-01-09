@@ -68,10 +68,6 @@ def edit(f):
             new_credit = input("Credit :")
             new_grade = input("Grade :")
             data.append([new_term,new_subject,new_credit,new_grade])
-        print(data)
-
-
-
     # new GPA
     total_c = 0
     total_CxG = 0
@@ -86,12 +82,9 @@ def edit(f):
         save(data)
     return
 
-def add(data):
-    return
-
-
 def save(data):
-    with open("new.csv", "w", newline="") as csvfile:
+    name_file =input("File name :")
+    with open(name_file, "w", newline="") as csvfile:
         fieldnames = ['Term','Subject','Credit','Grade']
         fw = csv.DictWriter(csvfile, fieldnames=fieldnames)
         fw.writeheader()
@@ -103,24 +96,75 @@ def save(data):
     print("Save Success !!!")
     return
 
-def main_programe(f):
+def main_programe():
+    print("Select your term [ex. 1/1]")
     while True:
-        print("Select mode \n 1.) Edit Grade \n 2.) Calculate Grade")
-        select = (input("Your select :"))
-        if select == "0":
-            print('GOOD BYE')
-            break
-        elif select == "1":
-            print("**** Edit Grade Mode ****")
-            edit(f)
-        elif select == "2" :
-            print("**** Calclate Grade Mode")
-            show(f)
+        select_term = (input("Your term :"))
+        if select_term == "1/1":
+            print("Select mode \n 1.) Edit Grade \n 2.) Calculate Grade")
+            select = (input("Your select :"))
+            if select == "1":
+                print("**** Edit Grade Mode ****")
+                edit("term/TERM1-1.csv")
+            elif select == "2":
+                print("**** Calclate Grade Mode ****")
+                show("term/TERM1-1.csv")
+
+        elif select_term == "1/2":
+            print("Select mode \n 1.) Edit Grade \n 2.) Calculate Grade")
+            select = (input("Your select :"))
+            if select == "1":
+                print("**** Edit Grade Mode ****")
+                edit("term/TERM1-2.csv")
+            elif select == "2":
+                print("**** Calclate Grade Mode ****")
+                show("term/TERM1-2.csv")
+
+        elif select_term == "2/1":
+            print("Select mode \n 1.) Edit Grade \n 2.) Calculate Grade")
+            select = (input("Your select :"))
+            if select == "1":
+                print("**** Edit Grade Mode ****")
+                edit("term/TERM2-1.csv")
+            elif select == "2":
+                print("**** Calclate Grade Mode ****")
+                show("term/TERM2-1.csv")
+
+        elif select_term == "2/2":
+            print("Select mode \n 1.) Edit Grade \n 2.) Calculate Grade")
+            select = (input("Your select :"))
+            if select == "1":
+                print("**** Edit Grade Mode ****")
+                edit("term/TERM2-2.csv")
+            elif select == "2":
+                print("**** Calclate Grade Mode ****")
+                show("term/TERM2-2.csv")
+
+        elif select_term == "3/1":
+            print("Select mode \n 1.) Edit Grade \n 2.) Calculate Grade")
+            select = (input("Your select :"))
+            if select == "1":
+                print("**** Edit Grade Mode ****")
+                edit("term/TERM3-1.csv")
+            elif select == "2":
+                print("**** Calclate Grade Mode ****")
+                show("term/TERM3-1.csv")
+
+        elif select_term == "3/2":
+            print("coming soon")
+
+        elif select_term == "4/1":
+            print("coming soon")
+
+        elif select_term == "4/2":
+            print("coming soon")
+
         else:
-            print('Try Again !!!')
-    return
-main_programe("GPA_V2.csv")
-#show('GPA_V2.csv')
+            print("Try again !!!!!")
+
+
+main_programe()
+
 
 
 
